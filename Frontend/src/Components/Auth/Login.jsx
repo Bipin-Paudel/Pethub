@@ -37,7 +37,7 @@ export default function LoginPage() {
     if (!validate()) return;
 
     try {
-      const res = await api.post('/auth/login/', { email, password });
+      const res = await api.post('http://127.0.0.1:8000/api/token/', { email, password });
 
       // Save tokens (for now localStorage, later can improve security)
       localStorage.setItem("access", res.data.access);
