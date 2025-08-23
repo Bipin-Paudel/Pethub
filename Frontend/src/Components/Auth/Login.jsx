@@ -44,7 +44,7 @@ export default function LoginPage() {
       localStorage.setItem("refresh", res.data.refresh);
 
       alert("Login successful!");
-      window.location.href = "/dashboard"; // redirect
+      window.location.href = "/"; // redirect
     } catch (err) {
       setServerError(err.response?.data?.detail || "Invalid email or password");
     }
