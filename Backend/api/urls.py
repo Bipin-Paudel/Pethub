@@ -4,5 +4,10 @@ from . import views
 
 urlpatterns = [
     path("", views.home ),
+    path("register/", views.RegisterView.as_view(), name="register"),
     
 ]
+
+
+
+
