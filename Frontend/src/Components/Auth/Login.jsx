@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import api from "../../api/client.js"; // import axios client
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({ email: '', password: '' });
+  const [serverError, setServerError] = useState('');
 
   const validate = () => {
     let valid = true;
@@ -30,15 +32,21 @@ export default function LoginPage() {
     return valid;
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    // Mock authentication
-    if (email === 'user@example.com' && password === '123456') {
-      alert('Login successful!');
-    } else {
-      alert('Invalid email or password');
+    try {
+      const res = await api.post('/auth/login/', { email, password });
+
+      // Save tokens (for now localStorage, later can improve security)
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
+
+      alert("Login successful!");
+      window.location.href = "/dashboard"; // redirect
+    } catch (err) {
+      setServerError(err.response?.data?.detail || "Invalid email or password");
     }
   };
 
@@ -77,6 +85,8 @@ export default function LoginPage() {
             </div>
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
+
+          {serverError && <p className="text-red-500 text-sm">{serverError}</p>}
 
           <button
             type="submit"
