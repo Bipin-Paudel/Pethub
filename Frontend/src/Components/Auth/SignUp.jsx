@@ -63,11 +63,11 @@ export default function SignupPage() {
     if (!validate()) return;
 
     try {
-      const response = await api.post("http://127.0.0.1:8001/api/register/", {
-        name,
-        email,
-        password,
-      });
+const response = await api.post("/api/register/", {
+  name,
+  email,
+  password,
+});
 
       setSuccess("Signup successful! You can now log in.");
       console.log("Signup response:", response.data);
