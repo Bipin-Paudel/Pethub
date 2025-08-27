@@ -1,9 +1,10 @@
-// src/routes.js
 const routes = {
   layout: "/",
   home:"",
-  pets: "/pets",
-  livestock: "/livestock",
+  rehome: "/rehome",
+  adoption: "/adopt",
+  adoptionform: "/adoptionform",
+  rescue: "/rescue",
   about: "/about",
   contact: "/contact",
   signup: "/signup",
